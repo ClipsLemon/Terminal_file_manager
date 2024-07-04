@@ -5,15 +5,16 @@ void GetInput(struct Directory *dir, int *ch, int *dir_changed,
 
   *ch = wgetch(dir->win);
 
-  if (*ch == KEY_DOWN) {
-    // возвращаемся в начало директории, если дошли до последнего элемента
+  switch (*ch) {
+  case KEY_DOWN:
     if (dir->position == dir->dir_len - 1) {
       dir->position = 0;
       // опускаем указатель ниже если иначе
     } else {
       dir->position++;
     }
-  } else if (*ch == KEY_UP) {
+    break;
+  case KEY_UP:
     // переходим в конец директории, если нажали вверх в начале
     if (dir->position == 0) {
       dir->position = dir->dir_len - 1;
@@ -21,11 +22,41 @@ void GetInput(struct Directory *dir, int *ch, int *dir_changed,
     } else {
       dir->position--;
     }
-    // если пользователь решил перейти в папку, то меняем дриекторию
-  } else if (*ch == '\n') {
+    break;
+  case '\n':
     ChangeDir(dir, dir_changed);
-  } else if (*ch == '\t') {
+    break;
+  case '\t':
     *dir_changed = 1;
-    *current_window = *current_window == LEFT_WINDOW ? RIGHT_WINDOW : LEFT_WINDOW;
+    *current_window =
+        *current_window == LEFT_WINDOW ? RIGHT_WINDOW : LEFT_WINDOW;
+    break;
+  case KEY_F(1):
+    *dir_changed = 1;
+    *current_window =
+        *current_window == LEFT_WINDOW ? RIGHT_WINDOW : LEFT_WINDOW;
+    break;
+  case KEY_F(2):
+    *dir_changed = 1;
+    *current_window =
+        *current_window == LEFT_WINDOW ? RIGHT_WINDOW : LEFT_WINDOW;
+    break;
+  case KEY_F(3):
+    *dir_changed = 1;
+    *current_window =
+        *current_window == LEFT_WINDOW ? RIGHT_WINDOW : LEFT_WINDOW;
+    break;
+  case KEY_F(4):
+    *dir_changed = 1;
+    CreateFile(dir->path);
+    break;
+  case KEY_F(5):
+    *dir_changed = 1;
+    CreateDir(dir->path);
+    break;
+  case KEY_F(6):
+    *dir_changed = 1;
+    RemoveFile(dir);
+    break;
   }
 }

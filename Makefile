@@ -1,9 +1,9 @@
-
-
-CC = gcc
+CC = gcc -g
 
 SRC_DIR = src
 OBJ_DIR = objects
+INTERFACES_DIR = interface
+
 
 # Получение имен подкаталогов в директории SRC_DIR
 SUBDIRS := $(shell find $(SRC_DIR) -type d)
@@ -25,7 +25,7 @@ $(OBJ_DIR)/%.o: %.c
 
 build:
 	$(CC) -c main.c -o main.o
-	$(CC) $(OBJ_DIR)/$(SRC_DIR)/*.o ./main.o -lncurses -o main
+	$(CC) $(OBJ_DIR)/$(SRC_DIR)/*.o $(OBJ_DIR)/$(SRC_DIR)/$(INTERFACES_DIR)/*.o ./main.o -lncurses -o main
 
 run:
 	./main

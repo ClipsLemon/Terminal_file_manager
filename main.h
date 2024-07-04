@@ -13,6 +13,7 @@
 #define HOME_PATH_LEN 50
 // #define MAX_STRING_LEN 200
 #define COLOR_BACKGROUND 3
+#define FILENAME_LEN 75
 
 #define MAX_MODIFY_DATE_WIDTH 21
 #define COLOR_DIR 2
@@ -39,8 +40,8 @@ struct Directory {
  * @brief Функция инициализации окна.
  *
  * @param win - указатель на окно
- * @param col - размеры экрана (не окна, а экрана)
  * @param row - столбцы экрана (не окна, а экрана)
+ * @param col - размеры экрана (не окна, а экрана)
  * @param y - начальная позиция окна
  * @param x - начальная позиция окна
  */
@@ -77,7 +78,22 @@ void PathDeleteDir(char *path);
  */
 void PathAddDir(char *path, char *added_dir);
 
-void PrintManager(struct Directory *window_list, char *home_path);
+void PrintManager(WINDOW *footer, struct Directory *window_list,
+                  char *home_path);
+
 void GetInput(struct Directory *dir, int *ch, int *dir_changed,
               int *current_window);
+
+void PrintFooter(WINDOW *footer);
+
+void CreateFile(char *path);
+
+void GetString(char *string, char *title);
+
+void CreateDir(char *path);
+
+void RemoveFile(struct Directory *dir);
+
+void ShowMessage(char *message, int row, int col, int x, int y, int color_pair);
+
 #endif // MAIN_H
